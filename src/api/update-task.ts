@@ -1,11 +1,11 @@
 import { api } from ".";
 
 export interface itemProps {
-  id: number;
-  description: string;
-  completed: boolean;
+  id: string;
+  title: string;
+  status: string;
 }
 
-export async function useUpdateTask({ description, completed, id }: itemProps) {
-  await api.put(`/tasks/${id}`, { description, completed });
+export async function useUpdateTask({ title, status, id }: itemProps) {
+  await api.put(`/tasks/${id}`, { title, status });
 }

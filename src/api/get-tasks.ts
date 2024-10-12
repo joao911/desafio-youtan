@@ -1,22 +1,22 @@
 import { api } from ".";
 
 export interface GetTasksProps {
-  totalItems: number;
+  totalCount: number;
   totalPages: number;
+  page: number;
   pageSize: number;
-  currentPage: number;
   tasks: {
-    id: number;
-    description: string;
-    completed: boolean;
+    id: string;
+    title: string;
+    status: string;
   }[];
 }
 
-export function getTasks(page: number, size = 10) {
-  return api.get<GetTasksProps>("tasks/alltasks", {
+export function getTasks(page: number, pageSize = 10) {
+  return api.get<GetTasksProps>("Tasks", {
     params: {
       page,
-      size,
+      pageSize,
     },
   });
 }

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { useState } from "react";
+import { Button, Skeleton, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -15,6 +15,7 @@ import { itemProps, useUpdateTask } from "@/api/update-task";
 
 export function App() {
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
+  const [loading, setLoading] = useState(false);
 
   const userSchema = z.object({
     task: z.string().min(1, "Insira o nome da tarefa"),
@@ -30,14 +31,14 @@ export function App() {
   } = useForm<NewCycleFormData>({
     resolver: zodResolver(userSchema),
     values: {
-      task: taskSelected.description || "",
+      task: taskSelected.title || "",
     },
   });
 
   const page = 0;
   const size = 10;
 
-  const { data: result } = useQuery({
+  const { data: result, isLoading } = useQuery({
     queryKey: ["tasks", page, size],
     queryFn: () => getTasks(page, size),
   });
@@ -63,33 +64,44 @@ export function App() {
     },
   });
 
-  async function handleDeleteTask(id: number) {
+  async function handleDeleteTask(id: string) {
     try {
+      setLoading(true);
       await deleteTaskFn({ id });
+      setTaskSelected({} as itemProps);
     } catch (error: any) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   async function handleUpdateTask(item: itemProps) {
     try {
+      setLoading(true);
       await updateTask({
-        description: item.description,
-        completed: item.completed,
+        title: item.title,
+        status: item.status,
         id: item.id,
       });
       setTaskSelected({} as itemProps);
       reset();
     } catch (error: any) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
 
   const handleCreateTask = async (task: string) => {
     try {
-      await createTask({ description: task });
+      setLoading(true);
+      await createTask({ title: task, status: "to-do" });
       reset();
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onSubmit = async (data: NewCycleFormData) => {
@@ -97,8 +109,8 @@ export function App() {
     !taskSelected.id
       ? await handleCreateTask(task)
       : await handleUpdateTask({
-          description: task,
-          completed: taskSelected.completed,
+          title: task,
+          status: taskSelected.status,
           id: taskSelected.id,
         });
   };
@@ -130,23 +142,30 @@ export function App() {
               fullWidth
               variant="contained"
               className="font-bold text-white bg-button-color h-14"
+              disabled={loading}
             >
-              Criar
+              {!taskSelected.id ? "Criar " : "Atualizar"}
             </Button>
           </div>
         </form>
-
-        {!isEmpty(result) &&
-          map(result?.data?.tasks, (item, index) => (
-            <CardComponent
-              key={index}
-              item={item}
-              index={index}
-              onDelete={handleDeleteTask}
-              onUpdate={handleUpdateTask}
-              setTaskSelected={setTaskSelected}
-            />
-          ))}
+        {isLoading ? (
+          <Skeleton variant="rectangular" width="100%" height={300} />
+        ) : (
+          <>
+            {!isEmpty(result) &&
+              map(result?.data?.tasks, (item, index) => (
+                <CardComponent
+                  key={index}
+                  item={item}
+                  index={index}
+                  onDelete={handleDeleteTask}
+                  onUpdate={handleUpdateTask}
+                  setTaskSelected={setTaskSelected}
+                  loading={loading}
+                />
+              ))}
+          </>
+        )}
       </div>
     </div>
   );

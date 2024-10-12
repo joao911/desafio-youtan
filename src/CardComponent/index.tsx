@@ -4,15 +4,17 @@ import CreateIcon from "@mui/icons-material/Create";
 import { Card, IconButton, Tooltip } from "@mui/material";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { clsx } from "clsx";
 
 import { itemProps } from "@/api/update-task";
 
 interface CardComponentProps {
   item: itemProps;
   index: number;
-  onDelete: (id: number) => void;
+  onDelete: (id: string) => void;
   onUpdate: (item: itemProps) => void;
   setTaskSelected: (item: itemProps) => void;
+  loading: boolean;
 }
 export const CardComponent: React.FC<CardComponentProps> = ({
   item,
@@ -20,6 +22,7 @@ export const CardComponent: React.FC<CardComponentProps> = ({
   onDelete,
   setTaskSelected,
   onUpdate,
+  loading,
 }) => {
   return (
     <Card className="flex items-center justify-between p-4 mt-4">
@@ -29,32 +32,40 @@ export const CardComponent: React.FC<CardComponentProps> = ({
             onClick={() =>
               onUpdate({
                 ...item,
-                completed: item.completed ? true : false,
+                status: item.status === "done" ? "to-do" : "done",
               })
             }
+            disabled={loading}
           >
-            {item.completed ? (
+            {item.status === "done" ? (
               <RadioButtonUncheckedIcon />
             ) : (
               <CheckCircleOutlineIcon />
             )}
           </IconButton>
         </Tooltip>
-        <p>{item.description}</p>
+        <p className={clsx({ "line-through": item.status === "done" })}>
+          {item.title}
+        </p>
       </div>
-      <div className="flex gap-4 ">
-        <Tooltip title="Deletar Tarefa">
-          <IconButton onClick={() => onDelete(item.id)}>
-            <DeleteIcon className="text-red-500 cursor-pointer" />
-          </IconButton>
-        </Tooltip>
+      {item.status !== "done" && (
+        <div className="flex gap-4 ">
+          <Tooltip title="Deletar Tarefa">
+            <IconButton onClick={() => onDelete(item.id)} disabled={loading}>
+              <DeleteIcon className="text-red-500 cursor-pointer" />
+            </IconButton>
+          </Tooltip>
 
-        <Tooltip title="Editar Tarefa">
-          <IconButton onClick={() => setTaskSelected(item)}>
-            <CreateIcon className="text-blue-500 cursor-pointer" />
-          </IconButton>
-        </Tooltip>
-      </div>
+          <Tooltip title="Editar Tarefa">
+            <IconButton
+              onClick={() => setTaskSelected(item)}
+              disabled={loading}
+            >
+              <CreateIcon className="text-blue-500 cursor-pointer" />
+            </IconButton>
+          </Tooltip>
+        </div>
+      )}
     </Card>
   );
 };

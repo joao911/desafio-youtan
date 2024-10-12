@@ -1,7 +1,7 @@
 import { api } from ".";
 
 export interface DeleteTaskProps {
-  id: number;
+  id: string;
 }
 
 export async function useDeleteTask({ id }: DeleteTaskProps) {

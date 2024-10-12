@@ -1,9 +1,10 @@
 import { api } from ".";
 
 export interface CreateTaskProps {
-  description: string;
+  title: string;
+  status: string;
 }
 
-export async function useCreateTask({ description }: CreateTaskProps) {
-  await api.post("/addtasks", { description });
+export async function useCreateTask({ title, status }: CreateTaskProps) {
+  await api.post("/Tasks", { title, status });
 }
