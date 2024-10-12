@@ -1,17 +1,28 @@
 import { useState } from "react";
-import { Button, Skeleton, TextField } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Skeleton,
+  TextField,
+  Toolbar,
+} from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { isEmpty, map } from "lodash";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
-import { CardComponent } from "@/CardComponent";
+import { CardComponent } from "@/components/CardComponent";
 import { useCreateTask } from "@/api/create-task";
 import { getTasks } from "@/api/get-tasks";
 import { useDeleteTask } from "@/api/delete-task";
 import { queryClient } from "@/api/react-query";
 import { itemProps, useUpdateTask } from "@/api/update-task";
+import { CardDash } from "@/components/CardDash";
 
 export function App() {
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
@@ -117,9 +128,45 @@ export function App() {
 
   return (
     <div className="w-screen h-screen py-8 bg-gray-200">
-      <div className="w-1/2 mx-auto ">
-        <h1 className="mb-5 text-5xl font-bold">Lista de Tarefas</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4 h-28">
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="fixed" className="bg-background-color">
+          <Toolbar className="flex justify-between">
+            <h1 className="text-2xl font-bold">Gerenciador de Tarefas</h1>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
+      <div className="px-8 mt-10">
+        <div className="flex flex-col w-full gap-4 md:flex-row">
+          <CardDash
+            icon={
+              <Box className="flex items-center justify-center p-3 bg-purple-200 rounded-xl">
+                <FormatListBulletedIcon className="text-purple-500" />
+              </Box>
+            }
+            title={600}
+            subtitle="Total de Tarefas"
+          />
+          <CardDash
+            icon={
+              <Box className="flex items-center justify-center p-3 bg-blue-200 rounded-xl">
+                <CheckCircleOutlineIcon className="text-blue-500" />
+              </Box>
+            }
+            title={1500}
+            subtitle="Tarefas concluídas"
+          />
+          <CardDash
+            icon={
+              <Box className="flex items-center justify-center p-3 bg-orange-200 rounded-xl">
+                <RadioButtonUncheckedIcon className="text-orange-500" />
+              </Box>
+            }
+            title={600}
+            subtitle="Tarefas pendentes"
+          />
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex h-24 gap-4">
           <Controller
             name="task"
             control={control}

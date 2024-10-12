@@ -25,7 +25,7 @@ export const CardComponent: React.FC<CardComponentProps> = ({
   loading,
 }) => {
   return (
-    <Card className="flex items-center justify-between p-4 mt-4">
+    <Card className="flex items-center justify-between px-4 py-1 mt-4">
       <div className="flex items-center gap-4">
         <Tooltip title="Concluir Tarefa">
           <IconButton
@@ -38,9 +38,9 @@ export const CardComponent: React.FC<CardComponentProps> = ({
             disabled={loading}
           >
             {item.status === "done" ? (
-              <RadioButtonUncheckedIcon />
+              <RadioButtonUncheckedIcon className="text-blue-500" />
             ) : (
-              <CheckCircleOutlineIcon />
+              <CheckCircleOutlineIcon className="text-orange-500" />
             )}
           </IconButton>
         </Tooltip>
