@@ -24,6 +24,8 @@ import { useDeleteTask } from "@/api/delete-task";
 import { queryClient } from "@/api/react-query";
 import { itemProps, useUpdateTask } from "@/api/update-task";
 import { CardDash } from "@/components/CardDash";
+import { useMoveTaskPosition } from "@/api/reorder-task";
+import { DarkMode } from "@/components/DarkMode";
 
 export const TodoList: React.FC = () => {
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
@@ -92,6 +94,7 @@ export const TodoList: React.FC = () => {
         title: item.title,
         status: item.status,
         id: item.id,
+        position: item.position,
       });
       setTaskSelected({} as itemProps);
       reset();
@@ -105,7 +108,12 @@ export const TodoList: React.FC = () => {
   const handleCreateTask = async (task: string) => {
     try {
       setLoading(true);
-      await createTask({ title: task, status: "to-do", id: uuidv4() });
+      await createTask({
+        title: task,
+        status: "to-do",
+        id: uuidv4(),
+        position: size(result?.data),
+      });
       reset();
     } catch (error) {
     } finally {
@@ -121,6 +129,7 @@ export const TodoList: React.FC = () => {
           title: task,
           status: taskSelected.status,
           id: taskSelected.id,
+          position: taskSelected.position,
         });
   };
 
@@ -137,16 +146,17 @@ export const TodoList: React.FC = () => {
   }, [result?.data]);
 
   return (
-    <div className="w-screen h-screen py-8 bg-gray-200">
+    <Box className="w-screen h-screen py-8 ">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed" className="bg-background-color">
+        <AppBar position="fixed" className="flex justify-between">
           <Toolbar className="flex justify-between">
             <h1 className="text-2xl font-bold">Gerenciador de Tarefas</h1>
+            <DarkMode />
           </Toolbar>
         </AppBar>
       </Box>
 
-      <div className="px-8 mt-10">
+      <div className="px-8 mt-14">
         <div className="flex flex-col w-full gap-4 md:flex-row">
           <CardDash
             icon={
@@ -190,7 +200,6 @@ export const TodoList: React.FC = () => {
                 label="Nome da Tarefa"
                 placeholder="Insira o nome da tarefa"
                 margin="normal"
-                className="border-border-color"
               />
             )}
           />
@@ -209,7 +218,7 @@ export const TodoList: React.FC = () => {
         {isLoading ? (
           <Skeleton variant="rectangular" width="100%" height={300} />
         ) : (
-          <>
+          <div className="overflow-auto h-[40rem]">
             {!isEmpty(result) &&
               map(result?.data, (item, index) => (
                 <CardComponent
@@ -222,9 +231,9 @@ export const TodoList: React.FC = () => {
                   onDelete={handleDeleteTask}
                 />
               ))}
-          </>
+          </div>
         )}
       </div>
-    </div>
+    </Box>
   );
 };
