@@ -24,7 +24,6 @@ import { useDeleteTask } from "@/api/delete-task";
 import { queryClient } from "@/api/react-query";
 import { itemProps, useUpdateTask } from "@/api/update-task";
 import { CardDash } from "@/components/CardDash";
-import { useMoveTaskPosition } from "@/api/reorder-task";
 import { DarkMode } from "@/components/DarkMode";
 
 export const TodoList: React.FC = () => {
