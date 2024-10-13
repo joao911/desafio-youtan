@@ -16,6 +16,7 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { v4 as uuidv4 } from "uuid";
+import { useTheme } from "@mui/material/styles";
 
 import { CardComponent } from "@/components/CardComponent";
 import { useCreateTask } from "@/api/create-task";
@@ -25,8 +26,13 @@ import { queryClient } from "@/api/react-query";
 import { itemProps, useUpdateTask } from "@/api/update-task";
 import { CardDash } from "@/components/CardDash";
 import { DarkMode } from "@/components/DarkMode";
+import { useDarkMode } from "@/store/darkmode";
+
+import { StyledTextField } from "./styles";
 
 export const TodoList: React.FC = () => {
+  const { mode } = useDarkMode();
+
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
   const [loading, setLoading] = useState(false);
 
@@ -188,7 +194,7 @@ export const TodoList: React.FC = () => {
             name="task"
             control={control}
             render={({ field, fieldState: { error } }) => (
-              <TextField
+              <StyledTextField
                 {...field}
                 error={!!error}
                 fullWidth
@@ -196,6 +202,8 @@ export const TodoList: React.FC = () => {
                 label="Nome da Tarefa"
                 placeholder="Insira o nome da tarefa"
                 margin="normal"
+                className="mt-12"
+                isWhiteBorder={mode === "dark"}
               />
             )}
           />

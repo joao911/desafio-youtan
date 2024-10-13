@@ -26,10 +26,7 @@ export const CardComponent: React.FC<CardComponentProps> = ({
   setTaskSelected,
 }) => {
   return (
-    <Card
-      className="flex items-center justify-between px-4 py-1 mt-4"
-      data-testid={`task-item-${item.id}`}
-    >
+    <Card className="flex items-center justify-between px-4 py-1 mt-4">
       <div className="flex items-center gap-4">
         <Tooltip title="Concluir Tarefa">
           <IconButton

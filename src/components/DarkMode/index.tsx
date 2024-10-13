@@ -9,16 +9,14 @@ import {
 } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-
+import { useDarkMode } from "@/store/darkmode";
 export function DarkMode() {
-  const [mode, setMode] = useState<"light" | "dark">("light");
-
+  const { mode, setMode } = useDarkMode();
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   function toggleColorMode() {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+    setMode(mode === "light" ? "dark" : "light");
   }
 
   const theme = useMemo(

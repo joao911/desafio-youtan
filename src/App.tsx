@@ -8,24 +8,24 @@ import CssBaseline from "@mui/material/CssBaseline";
 export function App() {
   const theme = createTheme({
     palette: {
-      mode: "light", // Modo claro
+      mode: "light",
       primary: {
-        main: "#1976d2", // Azul primário
-        light: "#63a4ff", // Azul claro
-        dark: "#115293", // Azul escuro
+        main: "#1976d2",
+        light: "#63a4ff",
+        dark: "#115293",
       },
       secondary: {
-        main: "#f50057", // Rosa secundário
-        light: "#ff4081", // Rosa claro
-        dark: "#ab003c", // Rosa escuro
+        main: "#f50057",
+        light: "#ff4081",
+        dark: "#ab003c",
       },
       background: {
-        default: "#ffffff", // Cor de fundo principal
-        paper: "#f5f5f5", // Cor de fundo dos papéis (como Card)
+        default: "#ffffff",
+        paper: "#f5f5f5",
       },
       text: {
-        primary: "#000000", // Cor do texto principal
-        secondary: "#555555", // Cor do texto secundário
+        primary: "#000000",
+        secondary: "#555555",
       },
     },
   });
