@@ -206,6 +206,7 @@ export const TodoList: React.FC = () => {
               variant="contained"
               className="font-bold text-white bg-button-color h-14"
               disabled={loading}
+              data-testid="button"
             >
               {!taskSelected.id ? "Criar " : "Atualizar"}
             </Button>
