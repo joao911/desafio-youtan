@@ -1,13 +1,10 @@
-import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { TodoList } from "./index";
 import { useCreateTask } from "@/api/create-task";
-import { getTasks } from "@/api/get-tasks";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { vi, describe, beforeEach, afterEach, it, expect, test } from "vitest";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { vi, describe, afterEach, it, expect } from "vitest";
 import { queryClient } from "@/api/react-query";
 import "@testing-library/jest-dom";
-import { useUpdateTask } from "@/api/update-task";
 
 vi.mock("@/api/create-task", () => ({
   useCreateTask: vi.fn(),
@@ -31,7 +28,7 @@ describe("TodoList", () => {
     vi.clearAllMocks();
   });
 
-  it("deve renderizar a tela corretamente", async () => {
+  it("should render the screen correctly", async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <TodoList />
@@ -45,7 +42,7 @@ describe("TodoList", () => {
     expect(totalTaskElement).to.exist;
   });
 
-  it("deve criar uma nova tarefa", async () => {
+  it("should create a new task", async () => {
     const mockCreateTask = useCreateTask as unknown as {
       (): Promise<void>;
       mockResolvedValueOnce: (value: Promise<void>) => void;
