@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   AppBar,
   Box,
@@ -10,11 +10,12 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { isEmpty, map } from "lodash";
+import { isEmpty, map, size } from "lodash";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { v4 as uuidv4 } from "uuid";
 
 import { CardComponent } from "@/components/CardComponent";
 import { useCreateTask } from "@/api/create-task";
@@ -23,7 +24,7 @@ import { useDeleteTask } from "@/api/delete-task";
 import { queryClient } from "@/api/react-query";
 import { itemProps, useUpdateTask } from "@/api/update-task";
 import { CardDash } from "@/components/CardDash";
-// import { Container } from './styles';
+import { DarkMode } from "@/components/DarkMode";
 
 export const TodoList: React.FC = () => {
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
@@ -47,32 +48,29 @@ export const TodoList: React.FC = () => {
     },
   });
 
-  const page = 0;
-  const size = 10;
-
   const { data: result, isLoading } = useQuery({
-    queryKey: ["tasks", page, size],
-    queryFn: () => getTasks(page, size),
+    queryKey: ["tasks"],
+    queryFn: () => getTasks(),
   });
 
   const { mutateAsync: createTask } = useMutation({
     mutationFn: useCreateTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks", page] });
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
 
   const { mutateAsync: updateTask } = useMutation({
     mutationFn: useUpdateTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks", page] });
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
 
   const { mutateAsync: deleteTaskFn } = useMutation({
     mutationFn: useDeleteTask,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks", page] });
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
     },
   });
 
@@ -108,7 +106,11 @@ export const TodoList: React.FC = () => {
   const handleCreateTask = async (task: string) => {
     try {
       setLoading(true);
-      await createTask({ title: task, status: "to-do" });
+      await createTask({
+        title: task,
+        status: "to-do",
+        id: uuidv4(),
+      });
       reset();
     } catch (error) {
     } finally {
@@ -127,17 +129,30 @@ export const TodoList: React.FC = () => {
         });
   };
 
+  const totalTasks = useMemo(() => {
+    return size(result?.data);
+  }, [result?.data]);
+
+  const completedTasks = useMemo(() => {
+    return size(result?.data.filter((item) => item.status === "done"));
+  }, [result?.data]);
+
+  const notCompletedTasks = useMemo(() => {
+    return size(result?.data.filter((item) => item.status === "to-do"));
+  }, [result?.data]);
+
   return (
-    <div className="w-screen h-screen py-8 bg-gray-200">
+    <Box className="w-screen h-screen py-8 ">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed" className="bg-background-color">
+        <AppBar position="fixed" className="flex justify-between">
           <Toolbar className="flex justify-between">
             <h1 className="text-2xl font-bold">Gerenciador de Tarefas</h1>
+            <DarkMode />
           </Toolbar>
         </AppBar>
       </Box>
 
-      <div className="px-8 mt-10">
+      <div className="px-8 mt-14">
         <div className="flex flex-col w-full gap-4 md:flex-row">
           <CardDash
             icon={
@@ -145,7 +160,7 @@ export const TodoList: React.FC = () => {
                 <FormatListBulletedIcon className="text-purple-500" />
               </Box>
             }
-            title={600}
+            title={totalTasks}
             subtitle="Total de Tarefas"
           />
           <CardDash
@@ -154,7 +169,7 @@ export const TodoList: React.FC = () => {
                 <CheckCircleOutlineIcon className="text-blue-500" />
               </Box>
             }
-            title={1500}
+            title={completedTasks}
             subtitle="Tarefas concluídas"
           />
           <CardDash
@@ -163,10 +178,11 @@ export const TodoList: React.FC = () => {
                 <RadioButtonUncheckedIcon className="text-orange-500" />
               </Box>
             }
-            title={600}
+            title={notCompletedTasks}
             subtitle="Tarefas pendentes"
           />
         </div>
+
         <form onSubmit={handleSubmit(onSubmit)} className="flex h-24 gap-4">
           <Controller
             name="task"
@@ -180,7 +196,6 @@ export const TodoList: React.FC = () => {
                 label="Nome da Tarefa"
                 placeholder="Insira o nome da tarefa"
                 margin="normal"
-                className="border-border-color"
               />
             )}
           />
@@ -191,6 +206,7 @@ export const TodoList: React.FC = () => {
               variant="contained"
               className="font-bold text-white bg-button-color h-14"
               disabled={loading}
+              data-testid="button"
             >
               {!taskSelected.id ? "Criar " : "Atualizar"}
             </Button>
@@ -199,22 +215,21 @@ export const TodoList: React.FC = () => {
         {isLoading ? (
           <Skeleton variant="rectangular" width="100%" height={300} />
         ) : (
-          <>
+          <div className="overflow-auto h-[40rem]">
             {!isEmpty(result) &&
-              map(result?.data?.tasks, (item, index) => (
+              map(result?.data, (item) => (
                 <CardComponent
-                  key={index}
+                  key={item.id}
                   item={item}
-                  index={index}
-                  onDelete={handleDeleteTask}
                   onUpdate={handleUpdateTask}
                   setTaskSelected={setTaskSelected}
                   loading={loading}
+                  onDelete={handleDeleteTask}
                 />
               ))}
-          </>
+          </div>
         )}
       </div>
-    </div>
+    </Box>
   );
 };

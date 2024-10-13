@@ -1,10 +1,6 @@
 import { api } from ".";
+import { TasksProps } from "./get-tasks";
 
-export interface CreateTaskProps {
-  title: string;
-  status: string;
-}
-
-export async function useCreateTask({ title, status }: CreateTaskProps) {
-  await api.post("/Tasks", { title, status });
+export async function useCreateTask({ title, status, id }: TasksProps) {
+  await api.post("/tasks", { title, status, id });
 }

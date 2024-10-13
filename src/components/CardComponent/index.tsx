@@ -7,25 +7,29 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { clsx } from "clsx";
 
 import { itemProps } from "@/api/update-task";
+import { TasksProps } from "@/api/get-tasks";
 
 interface CardComponentProps {
-  item: itemProps;
-  index: number;
-  onDelete: (id: string) => void;
+  item: TasksProps;
+
   onUpdate: (item: itemProps) => void;
-  setTaskSelected: (item: itemProps) => void;
   loading: boolean;
+  onDelete: (id: string) => void;
+  setTaskSelected: (item: itemProps) => void;
 }
 export const CardComponent: React.FC<CardComponentProps> = ({
   item,
-  index,
-  onDelete,
-  setTaskSelected,
+
   onUpdate,
   loading,
+  onDelete,
+  setTaskSelected,
 }) => {
   return (
-    <Card className="flex items-center justify-between px-4 py-1 mt-4">
+    <Card
+      className="flex items-center justify-between px-4 py-1 mt-4"
+      data-testid={`task-item-${item.id}`}
+    >
       <div className="flex items-center gap-4">
         <Tooltip title="Concluir Tarefa">
           <IconButton
@@ -38,9 +42,9 @@ export const CardComponent: React.FC<CardComponentProps> = ({
             disabled={loading}
           >
             {item.status === "done" ? (
-              <RadioButtonUncheckedIcon className="text-blue-500" />
+              <CheckCircleOutlineIcon className="text-blue-500" />
             ) : (
-              <CheckCircleOutlineIcon className="text-orange-500" />
+              <RadioButtonUncheckedIcon className="text-orange-500" />
             )}
           </IconButton>
         </Tooltip>

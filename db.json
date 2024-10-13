@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "id": "fee568e9-004d-4692-887a-1a680920b6af",
+      "title": "Nova Tarefa",
+      "status": "to-do"
+    },
+    {
+      "id": "7a18781b-0b17-4ef7-9fd7-ccbfa1ffa928",
+      "title": "Tarefa para Deletar",
+      "status": "to-do"
+    }
+  ]
+}
