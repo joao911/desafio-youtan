@@ -1,50 +1,48 @@
-# React + TypeScript + Vite
+# Todo List Youtan
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este é um projeto de lista de tarefas que utiliza uma variedade de tecnologias modernas para oferecer uma experiência de usuário rica e responsiva.
 
-Currently, two official plugins are available:
+## Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Vite**: Ferramenta de construção rápida e moderna para aplicações web.
+- **React**: Biblioteca para construção de interfaces de usuário.
+- **Zustand**: Gerenciamento de estado global de forma simples e eficiente.
+- **React Query**: Biblioteca para gerenciamento de dados e requisições assíncronas.
+- **React Hook Form**: Biblioteca para gerenciar formulários no React de maneira fácil e eficiente.
+- **Tailwind CSS**: Framework CSS utilitário para estilização rápida e responsiva.
+- **Styled Components**: Biblioteca para estilização de componentes no React usando CSS-in-JS.
+- **MUI (Material-UI)**: Biblioteca de componentes React para construção de interfaces de usuário com estilo Material.
+- **Animação**: Utilizada para dar vida aos cards do projeto.
+- **JSON Server**: Simulador de API para desenvolvimento, permitindo criar um backend simples e rápido.
 
-## Expanding the ESLint configuration
+## Instalação
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Para iniciar o projeto, você pode usar um dos seguintes gerenciadores de pacotes:
 
-- Configure the top-level `parserOptions` property like this:
+### Com `pnpm`
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+pnpm install
+pnpm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Com `yarn`
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+```bash
+yarn install
+yarn dev
 ```
+
+### Com npm
+
+```bash
+npm install
+npm run dev
+```
+
+### Para iniciar o json-Server
+
+```bash
+npx json-Server db.json
+```
+
