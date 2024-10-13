@@ -11,7 +11,7 @@ import { TasksProps } from "@/api/get-tasks";
 
 interface CardComponentProps {
   item: TasksProps;
-  index: number;
+
   onUpdate: (item: itemProps) => void;
   loading: boolean;
   onDelete: (id: string) => void;
@@ -19,7 +19,7 @@ interface CardComponentProps {
 }
 export const CardComponent: React.FC<CardComponentProps> = ({
   item,
-  index,
+
   onUpdate,
   loading,
   onDelete,

@@ -93,7 +93,6 @@ export const TodoList: React.FC = () => {
         title: item.title,
         status: item.status,
         id: item.id,
-        position: item.position,
       });
       setTaskSelected({} as itemProps);
       reset();
@@ -111,7 +110,6 @@ export const TodoList: React.FC = () => {
         title: task,
         status: "to-do",
         id: uuidv4(),
-        position: size(result?.data),
       });
       reset();
     } catch (error) {
@@ -128,7 +126,6 @@ export const TodoList: React.FC = () => {
           title: task,
           status: taskSelected.status,
           id: taskSelected.id,
-          position: taskSelected.position,
         });
   };
 
@@ -219,11 +216,10 @@ export const TodoList: React.FC = () => {
         ) : (
           <div className="overflow-auto h-[40rem]">
             {!isEmpty(result) &&
-              map(result?.data, (item, index) => (
+              map(result?.data, (item) => (
                 <CardComponent
-                  key={index}
+                  key={item.id}
                   item={item}
-                  index={index}
                   onUpdate={handleUpdateTask}
                   setTaskSelected={setTaskSelected}
                   loading={loading}

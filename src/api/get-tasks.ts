@@ -4,7 +4,6 @@ export interface TasksProps {
   id: string;
   title: string;
   status: string;
-  position: number;
 }
 
 export function getTasks() {
