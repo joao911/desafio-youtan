@@ -43,6 +43,6 @@ npm run dev
 ### Para iniciar o json-Server
 
 ```bash
-npx json-Server db.json
+npx json-server db.json
 ```
 
