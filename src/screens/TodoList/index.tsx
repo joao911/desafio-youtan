@@ -147,6 +147,8 @@ export const TodoList: React.FC = () => {
     return size(result?.data.filter((item) => item.status === "to-do"));
   }, [result?.data]);
 
+  console.log("mode", mode);
+
   return (
     <Box className="w-screen h-screen py-8 ">
       <Box sx={{ flexGrow: 1 }}>
