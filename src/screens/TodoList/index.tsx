@@ -1,5 +1,12 @@
 import React, { useMemo, useState } from "react";
-import { AppBar, Box, Button, Skeleton, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Skeleton,
+  TextField,
+  Toolbar,
+} from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -150,14 +157,17 @@ export const TodoList: React.FC = () => {
     return size(result?.data?.data.filter((item) => item.status === "to-do"));
   }, [result?.data]);
 
-  console.log("result", result?.data?.data);
-
   return (
-    <Box className="w-screen h-screen py-8 ">
+    <Box className="w-screen h-screen py-8 dark:bg-dark-bg ">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed" className="flex justify-between">
+        <AppBar
+          position="fixed"
+          className="flex justify-between dark:bg-dark-paper"
+        >
           <Toolbar className="flex justify-between">
-            <h1 className="text-2xl font-bold">Gerenciador de Tarefas</h1>
+            <h1 className="text-2xl font-bold dark:text-dark-gray">
+              Gerenciador de Tarefas
+            </h1>
             <DarkMode />
           </Toolbar>
         </AppBar>
@@ -199,7 +209,7 @@ export const TodoList: React.FC = () => {
             name="task"
             control={control}
             render={({ field, fieldState: { error } }) => (
-              <StyledTextField
+              <TextField
                 {...field}
                 error={!!error}
                 fullWidth
@@ -208,7 +218,20 @@ export const TodoList: React.FC = () => {
                 placeholder="Insira o nome da tarefa"
                 margin="normal"
                 className="mt-12"
-                isWhiteBorder={mode === "dark"}
+                InputLabelProps={{
+                  className: "dark:text-dark-gray",
+                }}
+                InputProps={{
+                  className: "border-red-500",
+                  inputProps: {
+                    className: "dark:text-dark-gray ",
+                  },
+                }}
+                sx={{
+                  input: {
+                    className: "dark:text-dark-gray",
+                  },
+                }}
               />
             )}
           />
@@ -217,7 +240,7 @@ export const TodoList: React.FC = () => {
               type="submit"
               fullWidth
               variant="contained"
-              className="font-bold text-white bg-button-color h-14"
+              className="font-bold text-white bg-button-color h-14 dark:bg-dark-blue dark:text-dark-gray"
               disabled={loading}
               data-testid="button"
             >

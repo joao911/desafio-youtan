@@ -26,7 +26,7 @@ export const CardComponent: React.FC<CardComponentProps> = ({
   setTaskSelected,
 }) => {
   return (
-    <Card className="flex items-center justify-between px-4 py-1 mt-4">
+    <Card className="flex items-center justify-between px-4 py-1 mt-4 dark:bg-dark-paper">
       <div className="flex items-center gap-4">
         <Tooltip title="Concluir Tarefa">
           <IconButton
@@ -45,7 +45,11 @@ export const CardComponent: React.FC<CardComponentProps> = ({
             )}
           </IconButton>
         </Tooltip>
-        <p className={clsx({ "line-through": item.status === "done" })}>
+        <p
+          className={clsx("dark:text-dark-gray", {
+            "line-through": item.status === "done",
+          })}
+        >
           {item.title}
         </p>
       </div>

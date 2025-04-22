@@ -17,5 +17,7 @@ export interface TasksProps {
 }
 
 export function getTasks(page: number) {
-  return api.get<TasksProps>(`tasks?_page=${page}&_per_page=8`);
+  return api.get<TasksProps>(
+    `tasks?_page=${page}&_per_page=8&_sort=-createdAt`
+  );
 }

@@ -28,6 +28,7 @@ export const PaginationComponent: React.FC<IPaginationProps> = ({
           <PaginationItem
             slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
             {...item}
+            className="dark:bg-dark-paper dark:text-dark-gray"
           />
         )}
       />

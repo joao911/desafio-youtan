@@ -14,15 +14,15 @@ export const CardDash: React.FC<CardDashProps> = ({
   subtitle,
 }) => {
   return (
-    <Card className="w-full p-4">
+    <Card className="w-full p-4 dark:bg-dark-paper">
       <div className="flex gap-4">
         {icon}
 
         <div>
-          <p className="text-xl font-bold text-text-secondary">
+          <p className="text-xl font-bold text-text-secondary dark:text-dark-gray">
             <CountUp end={title} separator=" " />
           </p>
-          <p className="text-text-subtitle">{subtitle}</p>
+          <p className="text-text-subtitle dark:text-dark-gray">{subtitle}</p>
         </div>
       </div>
     </Card>
