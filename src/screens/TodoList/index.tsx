@@ -16,7 +16,6 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { v4 as uuidv4 } from "uuid";
-import { useTheme } from "@mui/material/styles";
 
 import { CardComponent } from "@/components/CardComponent";
 import { useCreateTask } from "@/api/create-task";
@@ -29,12 +28,14 @@ import { DarkMode } from "@/components/DarkMode";
 import { useDarkMode } from "@/store/darkmode";
 
 import { StyledTextField } from "./styles";
+import { PaginationComponent } from "@/components/Pagination";
 
 export const TodoList: React.FC = () => {
   const { mode } = useDarkMode();
 
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(2);
 
   const userSchema = z.object({
     task: z.string().min(1, "Insira o nome da tarefa"),
@@ -46,6 +47,7 @@ export const TodoList: React.FC = () => {
 
     reset,
     control,
+
     formState: { errors },
   } = useForm<NewCycleFormData>({
     resolver: zodResolver(userSchema),
@@ -55,8 +57,8 @@ export const TodoList: React.FC = () => {
   });
 
   const { data: result, isLoading } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: () => getTasks(),
+    queryKey: ["tasks", page],
+    queryFn: () => getTasks(page),
   });
 
   const { mutateAsync: createTask } = useMutation({
@@ -85,6 +87,7 @@ export const TodoList: React.FC = () => {
       setLoading(true);
       await deleteTaskFn({ id });
       setTaskSelected({} as itemProps);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);
     } finally {
@@ -102,8 +105,9 @@ export const TodoList: React.FC = () => {
       });
       setTaskSelected({} as itemProps);
       reset();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log(error);
+      console.log("error ao atualizar task", error);
     } finally {
       setLoading(false);
     }
@@ -116,9 +120,12 @@ export const TodoList: React.FC = () => {
         title: task,
         status: "to-do",
         id: uuidv4(),
+        createdAt: new Date().toISOString(),
       });
       reset();
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log("erro ao criar task", error);
     } finally {
       setLoading(false);
     }
@@ -126,35 +133,41 @@ export const TodoList: React.FC = () => {
 
   const onSubmit = async (data: NewCycleFormData) => {
     const { task } = data;
-    !taskSelected.id
-      ? await handleCreateTask(task)
-      : await handleUpdateTask({
-          title: task,
-          status: taskSelected.status,
-          id: taskSelected.id,
-        });
+
+    if (!taskSelected.id) {
+      await handleCreateTask(task);
+    } else {
+      await handleUpdateTask({
+        title: task,
+        status: taskSelected.status,
+        id: taskSelected.id,
+      });
+    }
   };
 
   const totalTasks = useMemo(() => {
-    return size(result?.data);
+    return size(result?.data?.data);
   }, [result?.data]);
 
   const completedTasks = useMemo(() => {
-    return size(result?.data.filter((item) => item.status === "done"));
+    return size(result?.data?.data.filter((item) => item.status === "done"));
   }, [result?.data]);
 
   const notCompletedTasks = useMemo(() => {
-    return size(result?.data.filter((item) => item.status === "to-do"));
+    return size(result?.data?.data.filter((item) => item.status === "to-do"));
   }, [result?.data]);
 
-  console.log("mode", mode);
-
   return (
-    <Box className="w-screen h-screen py-8 ">
+    <Box className="w-screen h-screen py-8 dark:bg-dark-bg ">
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed" className="flex justify-between">
+        <AppBar
+          position="fixed"
+          className="flex justify-between dark:bg-dark-paper"
+        >
           <Toolbar className="flex justify-between">
-            <h1 className="text-2xl font-bold">Gerenciador de Tarefas</h1>
+            <h1 className="text-2xl font-bold dark:text-dark-gray">
+              Gerenciador de Tarefas
+            </h1>
             <DarkMode />
           </Toolbar>
         </AppBar>
@@ -196,7 +209,7 @@ export const TodoList: React.FC = () => {
             name="task"
             control={control}
             render={({ field, fieldState: { error } }) => (
-              <StyledTextField
+              <TextField
                 {...field}
                 error={!!error}
                 fullWidth
@@ -205,7 +218,20 @@ export const TodoList: React.FC = () => {
                 placeholder="Insira o nome da tarefa"
                 margin="normal"
                 className="mt-12"
-                isWhiteBorder={mode === "dark"}
+                InputLabelProps={{
+                  className: "dark:text-dark-gray",
+                }}
+                InputProps={{
+                  className: "border-red-500",
+                  inputProps: {
+                    className: "dark:text-dark-gray ",
+                  },
+                }}
+                sx={{
+                  input: {
+                    className: "dark:text-dark-gray",
+                  },
+                }}
               />
             )}
           />
@@ -214,7 +240,7 @@ export const TodoList: React.FC = () => {
               type="submit"
               fullWidth
               variant="contained"
-              className="font-bold text-white bg-button-color h-14"
+              className="font-bold text-white bg-button-color h-14 dark:bg-dark-blue dark:text-dark-gray"
               disabled={loading}
               data-testid="button"
             >
@@ -227,7 +253,7 @@ export const TodoList: React.FC = () => {
         ) : (
           <div className="overflow-auto h-[40rem]">
             {!isEmpty(result) &&
-              map(result?.data, (item) => (
+              map(result?.data?.data, (item) => (
                 <CardComponent
                   key={item.id}
                   item={item}
@@ -239,6 +265,13 @@ export const TodoList: React.FC = () => {
               ))}
           </div>
         )}
+        <div className="flex justify-center">
+          <PaginationComponent
+            page={page}
+            numberOfPages={Number(result?.data?.pages)}
+            setPage={setPage}
+          />
+        </div>
       </div>
     </Box>
   );
