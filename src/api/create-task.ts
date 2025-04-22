@@ -1,6 +1,11 @@
 import { api } from ".";
-import { TasksProps } from "./get-tasks";
+import { IDataProps } from "./get-tasks";
 
-export async function useCreateTask({ title, status, id }: TasksProps) {
-  await api.post("/tasks", { title, status, id });
+export async function useCreateTask({
+  title,
+  status,
+  id,
+  createdAt,
+}: IDataProps) {
+  await api.post("/tasks", { title, status, id, createdAt });
 }

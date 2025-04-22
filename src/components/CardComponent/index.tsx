@@ -7,10 +7,10 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { clsx } from "clsx";
 
 import { itemProps } from "@/api/update-task";
-import { TasksProps } from "@/api/get-tasks";
+import { IDataProps } from "@/api/get-tasks";
 
 interface CardComponentProps {
-  item: TasksProps;
+  item: IDataProps;
 
   onUpdate: (item: itemProps) => void;
   loading: boolean;

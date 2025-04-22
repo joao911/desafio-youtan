@@ -1,8 +1,9 @@
 import { api } from ".";
-interface IDataProps {
+export interface IDataProps {
   id: string;
   title: string;
   status: string;
+  createdAt: string;
 }
 
 export interface TasksProps {
@@ -16,5 +17,5 @@ export interface TasksProps {
 }
 
 export function getTasks(page: number) {
-  return api.get<TasksProps[]>(`tasks?_page=${page}`);
+  return api.get<TasksProps>(`tasks?_page=${page}&_per_page=8`);
 }

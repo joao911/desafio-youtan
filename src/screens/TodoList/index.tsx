@@ -21,13 +21,14 @@ import { DarkMode } from "@/components/DarkMode";
 import { useDarkMode } from "@/store/darkmode";
 
 import { StyledTextField } from "./styles";
+import { PaginationComponent } from "@/components/Pagination";
 
 export const TodoList: React.FC = () => {
   const { mode } = useDarkMode();
 
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(2);
 
   const userSchema = z.object({
     task: z.string().min(1, "Insira o nome da tarefa"),
@@ -39,6 +40,7 @@ export const TodoList: React.FC = () => {
 
     reset,
     control,
+
     formState: { errors },
   } = useForm<NewCycleFormData>({
     resolver: zodResolver(userSchema),
@@ -78,6 +80,7 @@ export const TodoList: React.FC = () => {
       setLoading(true);
       await deleteTaskFn({ id });
       setTaskSelected({} as itemProps);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.log(error);
     } finally {
@@ -95,8 +98,9 @@ export const TodoList: React.FC = () => {
       });
       setTaskSelected({} as itemProps);
       reset();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      console.log(error);
+      console.log("error ao atualizar task", error);
     } finally {
       setLoading(false);
     }
@@ -109,9 +113,12 @@ export const TodoList: React.FC = () => {
         title: task,
         status: "to-do",
         id: uuidv4(),
+        createdAt: new Date().toISOString(),
       });
       reset();
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.log("erro ao criar task", error);
     } finally {
       setLoading(false);
     }
@@ -119,28 +126,31 @@ export const TodoList: React.FC = () => {
 
   const onSubmit = async (data: NewCycleFormData) => {
     const { task } = data;
-    !taskSelected.id
-      ? await handleCreateTask(task)
-      : await handleUpdateTask({
-          title: task,
-          status: taskSelected.status,
-          id: taskSelected.id,
-        });
+
+    if (!taskSelected.id) {
+      await handleCreateTask(task);
+    } else {
+      await handleUpdateTask({
+        title: task,
+        status: taskSelected.status,
+        id: taskSelected.id,
+      });
+    }
   };
 
   const totalTasks = useMemo(() => {
-    return size(result?.data);
+    return size(result?.data?.data);
   }, [result?.data]);
 
   const completedTasks = useMemo(() => {
-    return size(result?.data.filter((item) => item.status === "done"));
+    return size(result?.data?.data.filter((item) => item.status === "done"));
   }, [result?.data]);
 
   const notCompletedTasks = useMemo(() => {
-    return size(result?.data.filter((item) => item.status === "to-do"));
+    return size(result?.data?.data.filter((item) => item.status === "to-do"));
   }, [result?.data]);
 
-  console.log("mode", mode);
+  console.log("result", result?.data?.data);
 
   return (
     <Box className="w-screen h-screen py-8 ">
@@ -220,7 +230,7 @@ export const TodoList: React.FC = () => {
         ) : (
           <div className="overflow-auto h-[40rem]">
             {!isEmpty(result) &&
-              map(result?.data, (item) => (
+              map(result?.data?.data, (item) => (
                 <CardComponent
                   key={item.id}
                   item={item}
@@ -232,6 +242,13 @@ export const TodoList: React.FC = () => {
               ))}
           </div>
         )}
+        <div className="flex justify-center">
+          <PaginationComponent
+            page={page}
+            numberOfPages={Number(result?.data?.pages)}
+            setPage={setPage}
+          />
+        </div>
       </div>
     </Box>
   );
