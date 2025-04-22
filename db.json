@@ -2,7 +2,7 @@
   "tasks": [
     {
       "title": "verificar listagem de carnes com parcelas a pagar (user normal - regra so pode listar carnês que tem parcelas de 1° até a 12° parcela)",
-      "status": "done",
+      "status": "to-do",
       "id": "6b02478f-6fd1-4a27-8e86-d4cbdc5b1f6c"
     },
     {

@@ -1,12 +1,5 @@
 import React, { useMemo, useState } from "react";
-import {
-  AppBar,
-  Box,
-  Button,
-  Skeleton,
-  TextField,
-  Toolbar,
-} from "@mui/material";
+import { AppBar, Box, Button, Skeleton, Toolbar } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -16,7 +9,6 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { v4 as uuidv4 } from "uuid";
-import { useTheme } from "@mui/material/styles";
 
 import { CardComponent } from "@/components/CardComponent";
 import { useCreateTask } from "@/api/create-task";
@@ -35,6 +27,7 @@ export const TodoList: React.FC = () => {
 
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
 
   const userSchema = z.object({
     task: z.string().min(1, "Insira o nome da tarefa"),
@@ -55,8 +48,8 @@ export const TodoList: React.FC = () => {
   });
 
   const { data: result, isLoading } = useQuery({
-    queryKey: ["tasks"],
-    queryFn: () => getTasks(),
+    queryKey: ["tasks", page],
+    queryFn: () => getTasks(page),
   });
 
   const { mutateAsync: createTask } = useMutation({
