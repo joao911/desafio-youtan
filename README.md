@@ -46,3 +46,15 @@ npm run dev
 npx json-server db.json
 ```
 
+### Iniciar testes end to end ultilizando playwright
+
+```bash
+yarn playwright test --ui
+```
+
+### Instalar playwright
+
+```bash
+yarn create playwright
+```
+
