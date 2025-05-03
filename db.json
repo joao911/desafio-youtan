@@ -1,3 +1,75 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "title": "Verificar listagem de carnes com parcelas a pagar (user normal - regra so pode listar carnês que tem parcelas de 1° até a 12° parcela)",
+      "status": "done",
+      "id": "24522f97-39f9-44e2-8208-05bb682b40d2"
+    },
+    {
+      "title": "Verificar listagem de carnes disponíveis a resgate (Deve conter apenas os carnês com Status quitado e opcional pagar 13° parcela)",
+      "status": "done",
+      "id": "b3de1778-dc9e-4acd-aa33-9cc797b5ed8d"
+    },
+    {
+      "title": "Verificar a listagem de todos os carnês (deve conter a listagem de todos os carnês independente do status - é a soma de todos os carnês que o user tem no seu CPF)",
+      "status": "done",
+      "id": "2b3efaf6-c0d8-43ab-a951-dc14b5789160"
+    },
+    {
+      "title": "Pagar parcelas a vulso (deve poder pagar uma ou mais parcelas - ao pagar uma parcela deve ser verificado no sistema da pagarme se realmente aconteceu, esse teste deve ser feito apontado para o ambiente de produção e deve ser feito com mais de um cartão de crédito )",
+      "status": "done",
+      "id": "0d418d03-7a70-496b-9611-bab8f6064632"
+    },
+    {
+      "title": "Ativar pagamento recorrente (clicar no switch de pagamento recorrente insirir os dados do cartão de crédito, após isso verificar na pargarme se a solicitação foi feita - esse teste deve ser feito apontado no ambiente de produção com mais de um cartão de crédito)",
+      "status": "done",
+      "id": "78678592-705c-44e4-8d88-134eb091cff7"
+    },
+    {
+      "title": "Pagar parcela a vulso com pagamento de parcela recorrente ativo (ao clicar no botão pagar deve aparecer um modal solicitando que o pagamento recorrente seja desativado para seguir com essa ação)",
+      "status": "done",
+      "id": "92557155-b4f3-4fbf-b971-b59a5e36d99f"
+    },
+    {
+      "title": "Cancelar pagemto recorrente (clicar no switch que em um carnê que esteja com o pagamento recorrente ativo e cancelar o mesmo verificar - Verificar no site da pagarme se ação realmente aconteceu, repetir essa ação mais de uma vez)",
+      "status": "done",
+      "id": "ec8a9c6b-ad9b-4f3c-8dd1-1ce0bd0c8754"
+    },
+    {
+      "title": "Autenticar verificar listagem de carnes com parcelas a pagar (user normal - regra so pode listar carnês que tem parcelas de 1° até a 12° parcela)",
+      "status": "done",
+      "id": "bd143f63-06e5-409b-8703-5fb14c1b38a9"
+    },
+    {
+      "title": "Autenticar - Verificar listagem de carnes disponiveis a resgate (Deve conter apenas os carnês com Status quitado e opocional pagar 13° parcela)",
+      "status": "done",
+      "id": "7c7835ea-a3e4-4ba0-91cf-25ce164db68c"
+    },
+    {
+      "title": " Autenticar - Verificar a lisagem de todos os carnês (deve conter a listagem de todos os carnês independente do status - é a soma de todos os carnês que o user tem no seu CPF",
+      "status": "done",
+      "id": "5a318fde-ed0d-4809-8461-96a49634467b"
+    },
+    {
+      "title": "Autenticar - Pagar parcelas a vulso (deve poder pagar uma ou mais parcelas - ao pagar uma parcela deve ser verificado no sistema da pagarme se realmente aconteceu, esse teste deve ser feito apontado para o ambiente de produção e deve ser feito com mais de um cartão de crédito )",
+      "status": "done",
+      "id": "c543634c-34e8-4f23-8278-3a7b04364897"
+    },
+    {
+      "title": "Autenticar - Pagar parcelas a vulso (deve poder pagar uma ou mais parcelas - ao pagar uma parcela deve ser verificado no sistema da pagarme se realmente aconteceu, esse teste deve ser feito apontado para o ambiente de produção e deve ser feito com mais de um cartão de crédito )",
+      "status": "done",
+      "id": "1106b988-a0f9-4ce2-aa0b-f676f9fecc82"
+    },
+    {
+      "title": "Autenticar - pagmento de parcelas a vulso",
+      "status": "to-do",
+      "id": "25a4d651-2f30-4671-874e-2d65932dbf33"
+    },
+    {
+      "id": "2a0d304f-ddc1-413c-af17-4e95a6056e6e",
+      "title": "Ao entrar no sistema ja está aparecendo o nome do usuário mesmo não estando logado",
+      "status": "to-do",
+      "createdAt": "2025-04-22T19:24:29.990Z"
+    }
+  ]
 }

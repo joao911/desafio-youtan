@@ -16,6 +16,7 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { v4 as uuidv4 } from "uuid";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import { CardComponent } from "@/components/CardComponent";
 import { useCreateTask } from "@/api/create-task";
@@ -29,6 +30,8 @@ import { DarkMode } from "@/components/DarkMode";
 import { PaginationComponent } from "@/components/Pagination";
 
 export const TodoList: React.FC = () => {
+  const [parent] = useAutoAnimate();
+
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(2);
@@ -247,7 +250,7 @@ export const TodoList: React.FC = () => {
         {isLoading ? (
           <Skeleton variant="rectangular" width="100%" height={300} />
         ) : (
-          <div className="overflow-auto h-[40rem]">
+          <div className="overflow-auto h-[40rem]" ref={parent}>
             {!isEmpty(result) &&
               map(result?.data?.data, (item) => (
                 <CardComponent
