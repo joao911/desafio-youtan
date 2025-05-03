@@ -64,12 +64,6 @@
       "title": "Autenticar - pagmento de parcelas a vulso",
       "status": "to-do",
       "id": "25a4d651-2f30-4671-874e-2d65932dbf33"
-    },
-    {
-      "id": "2a0d304f-ddc1-413c-af17-4e95a6056e6e",
-      "title": "Ao entrar no sistema ja está aparecendo o nome do usuário mesmo não estando logado",
-      "status": "to-do",
-      "createdAt": "2025-04-22T19:24:29.990Z"
     }
   ]
 }
