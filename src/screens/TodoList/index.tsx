@@ -25,14 +25,10 @@ import { queryClient } from "@/api/react-query";
 import { itemProps, useUpdateTask } from "@/api/update-task";
 import { CardDash } from "@/components/CardDash";
 import { DarkMode } from "@/components/DarkMode";
-import { useDarkMode } from "@/store/darkmode";
 
-import { StyledTextField } from "./styles";
 import { PaginationComponent } from "@/components/Pagination";
 
 export const TodoList: React.FC = () => {
-  const { mode } = useDarkMode();
-
   const [taskSelected, setTaskSelected] = useState<itemProps>({} as itemProps);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(2);
@@ -150,11 +146,11 @@ export const TodoList: React.FC = () => {
   }, [result?.data]);
 
   const completedTasks = useMemo(() => {
-    return size(result?.data?.data.filter((item) => item.status === "done"));
+    return size(result?.data?.data?.filter((item) => item.status === "done"));
   }, [result?.data]);
 
   const notCompletedTasks = useMemo(() => {
-    return size(result?.data?.data.filter((item) => item.status === "to-do"));
+    return size(result?.data?.data?.filter((item) => item.status === "to-do"));
   }, [result?.data]);
 
   return (
