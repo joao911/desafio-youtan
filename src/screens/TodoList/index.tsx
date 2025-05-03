@@ -29,6 +29,7 @@ import { DarkMode } from "@/components/DarkMode";
 import { useDarkMode } from "@/store/darkmode";
 
 import { PaginationComponent } from "@/components/Pagination";
+import { CLIENT_RENEG_LIMIT } from "tls";
 
 export const TodoList: React.FC = () => {
   const [parent] = useAutoAnimate();
@@ -150,12 +151,14 @@ export const TodoList: React.FC = () => {
   }, [result?.data]);
 
   const completedTasks = useMemo(() => {
-    return size(result?.data?.data.filter((item) => item.status === "done"));
+    return size(result?.data?.data?.filter((item) => item.status === "done"));
   }, [result?.data]);
 
   const notCompletedTasks = useMemo(() => {
-    return size(result?.data?.data.filter((item) => item.status === "to-do"));
+    return size(result?.data?.data?.filter((item) => item.status === "to-do"));
   }, [result?.data]);
+
+  console.log(result?.data?.data);
 
   return (
     <Box className="w-screen h-screen py-8 dark:bg-dark-bg ">

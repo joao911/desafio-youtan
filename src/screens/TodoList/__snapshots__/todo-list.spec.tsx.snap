@@ -1,0 +1,240 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TodoList > should match snapshot 1`] = `
+<div>
+  <div
+    class="w-screen h-screen py-8 dark:bg-dark-bg MuiBox-root css-0"
+  >
+    <div
+      class="MuiBox-root css-i9gxme"
+    >
+      <header
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed flex justify-between dark:bg-dark-paper mui-fixed css-zanzjh-MuiPaper-root-MuiAppBar-root"
+        style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
+      >
+        <div
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular flex justify-between css-1ygil4i-MuiToolbar-root"
+        >
+          <h1
+            class="text-2xl font-bold dark:text-dark-gray"
+          >
+            Gerenciador de Tarefas
+          </h1>
+          <button
+            aria-label="Tema claro"
+            class="p-2 text-gray-800 transition-all duration-300 bg-gray-200 rounded-lg dark:bg-gray-800 dark:text-gray-200"
+            data-mui-internal-clone-element="true"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
+              data-testid="Brightness4Icon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zM12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6c3.31 0 6 2.69 6 6s-2.69 6-6 6"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+    </div>
+    <div
+      class="px-8 mt-14"
+    >
+      <div
+        class="flex flex-col w-full gap-4 md:flex-row"
+      >
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root w-full p-4 dark:bg-dark-paper css-1j74uew-MuiPaper-root-MuiCard-root"
+          style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+        >
+          <div
+            class="flex gap-4"
+          >
+            <div
+              class="flex items-center justify-center p-3 bg-purple-200 rounded-xl MuiBox-root css-0"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium text-purple-500 css-1umw9bq-MuiSvgIcon-root"
+                data-testid="FormatListBulletedIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5m0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5m0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5M7 19h14v-2H7zm0-6h14v-2H7zm0-8v2h14V5z"
+                />
+              </svg>
+            </div>
+            <div>
+              <p
+                class="text-xl font-bold text-text-secondary dark:text-dark-gray"
+              >
+                <span>
+                  0
+                </span>
+              </p>
+              <p
+                class="text-text-subtitle dark:text-dark-gray"
+              >
+                Total de Tarefas
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root w-full p-4 dark:bg-dark-paper css-1j74uew-MuiPaper-root-MuiCard-root"
+          style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+        >
+          <div
+            class="flex gap-4"
+          >
+            <div
+              class="flex items-center justify-center p-3 bg-blue-200 rounded-xl MuiBox-root css-0"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium text-blue-500 css-1umw9bq-MuiSvgIcon-root"
+                data-testid="CheckCircleOutlineIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M16.59 7.58 10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"
+                />
+              </svg>
+            </div>
+            <div>
+              <p
+                class="text-xl font-bold text-text-secondary dark:text-dark-gray"
+              >
+                <span>
+                  0
+                </span>
+              </p>
+              <p
+                class="text-text-subtitle dark:text-dark-gray"
+              >
+                Tarefas concluídas
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root w-full p-4 dark:bg-dark-paper css-1j74uew-MuiPaper-root-MuiCard-root"
+          style="--Paper-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);"
+        >
+          <div
+            class="flex gap-4"
+          >
+            <div
+              class="flex items-center justify-center p-3 bg-orange-200 rounded-xl MuiBox-root css-0"
+            >
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium text-orange-500 css-1umw9bq-MuiSvgIcon-root"
+                data-testid="RadioButtonUncheckedIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8"
+                />
+              </svg>
+            </div>
+            <div>
+              <p
+                class="text-xl font-bold text-text-secondary dark:text-dark-gray"
+              >
+                <span>
+                  0
+                </span>
+              </p>
+              <p
+                class="text-text-subtitle dark:text-dark-gray"
+              >
+                Tarefas pendentes
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form
+        class="flex h-24 gap-4"
+      >
+        <div
+          class="MuiFormControl-root MuiFormControl-marginNormal MuiFormControl-fullWidth MuiTextField-root mt-12 css-1jpmndj-MuiFormControl-root-MuiTextField-root"
+        >
+          <label
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined dark:text-dark-gray css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
+            data-shrink="false"
+            for=":r1:"
+            id=":r1:-label"
+          >
+            Nome da Tarefa
+          </label>
+          <div
+            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-fullWidth MuiInputBase-formControl border-red-500 css-1blp12k-MuiInputBase-root-MuiOutlinedInput-root"
+          >
+            <input
+              aria-invalid="false"
+              class="MuiInputBase-input MuiOutlinedInput-input dark:text-dark-gray css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
+              id=":r1:"
+              name="task"
+              placeholder="Insira o nome da tarefa"
+              type="text"
+              value=""
+            />
+            <fieldset
+              aria-hidden="true"
+              class="MuiOutlinedInput-notchedOutline css-1ll44ll-MuiOutlinedInput-notchedOutline"
+            >
+              <legend
+                class="css-81qg8w"
+              >
+                <span>
+                  Nome da Tarefa
+                </span>
+              </legend>
+            </fieldset>
+          </div>
+        </div>
+        <div
+          class="mt-4"
+        >
+          <button
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-fullWidth font-bold text-white bg-button-color h-14 dark:bg-dark-blue dark:text-dark-gray css-qxc2i0-MuiButtonBase-root-MuiButton-root"
+            data-testid="button"
+            tabindex="0"
+            type="submit"
+          >
+            Criar 
+          </button>
+        </div>
+      </form>
+      <span
+        class="MuiSkeleton-root MuiSkeleton-rectangular MuiSkeleton-pulse css-3sr0vz-MuiSkeleton-root"
+        style="width: 100%; height: 300px;"
+      />
+      <div
+        class="flex justify-center"
+      >
+        <div
+          class="MuiStack-root css-1sazv7p-MuiStack-root"
+        >
+          <nav
+            aria-label="pagination navigation"
+            class="MuiPagination-root MuiPagination-text css-1xra8g6-MuiPagination-root"
+          >
+            <ul
+              class="MuiPagination-ul css-1c5o7vy-MuiPagination-ul"
+            />
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
