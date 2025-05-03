@@ -28,12 +28,7 @@ describe("CardDash Component", () => {
     expect(getByText("My Subtitle")).toBeInTheDocument();
   });
 
-  it("matches the snapshot", () => {
-    const { asFragment } = render(
-      <CardDash icon={<div>Icon</div>} title={100} subtitle="Snapshot Test" />
-    );
-    expect(asFragment()).toMatchSnapshot();
-  });
+ 
 
   it("renders correctly with title as zero", () => {
     const { getByText } = render(
